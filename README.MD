@@ -6,6 +6,7 @@
 [![Maven Build](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml/badge.svg)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
 [![Version](https://img.shields.io/github/v/release/JWeinelt/StarMakerPlus)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
 [![License](https://img.shields.io/github/license/JWeinelt/StarMakerPlus)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
+[![Contributors](https://img.shields.io/github/contributors/JWeinelt/StarMakerPlus)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
 
 
 # ⭐ StarMakerPlus
