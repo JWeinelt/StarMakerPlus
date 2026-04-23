@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="GNUv3" pattern="file[StarMakerPlus]:src/main/java//*" />
+</component>
