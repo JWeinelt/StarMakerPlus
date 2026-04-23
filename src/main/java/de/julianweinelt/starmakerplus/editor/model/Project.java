@@ -21,6 +21,8 @@ import java.util.List;
 @Setter
 @Getter
 public class Project {
+    private final File projectFolderInternal;
+
     private String name;
     private String description;
     private File directory;
@@ -42,6 +44,8 @@ public class Project {
         this.description = description;
         this.directory = directory;
         this.lastModified = LocalDateTime.now();
+
+        projectFolderInternal = new File(directory, ".starmakerplus");
 
         rootFile = new File(directory, "assets/starsources");
         if (!rootFile.exists()) log.warn("Root folder does not exist: {}", rootFile.getAbsolutePath());
