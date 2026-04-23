@@ -1,8 +1,12 @@
 [![StarMaker](src/main/resources/badges/starmaker.png)](https://modrinth.com/mod/starmaker)
 [![Documentation](src/main/resources/badges/docs.png)](https://docs.starmakerplus.julianweinelt.de)
 [![Weblate](src/main/resources/badges/weblate.png)](https://weblate.codeblocksmc.com/project/starmakerplus)
-[![Issues](src/main/resources/badges/issues.png)](https://github.com/JWeinelt/StarMakerPlus/Issues)\
+[![Issues](src/main/resources/badges/issues.png)](https://github.com/JWeinelt/StarMakerPlus/Issues)
+
 [![Maven Build](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml/badge.svg)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
+[![Version](https://img.shields.io/github/v/release/JWeinelt/StarMakerPlus)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
+[![License](https://img.shields.io/github/license/JWeinelt/StarMakerPlus)](https://github.com/JWeinelt/StarMakerPlus/actions/workflows/maven.yml)
+
 
 # ⭐ StarMakerPlus
 This is an easy-to-use editor for the **StarMaker GalactiCraft Addon.**
