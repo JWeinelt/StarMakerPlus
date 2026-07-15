@@ -90,7 +90,7 @@ public class NewProjectDialog extends JDialog {
 
         JButton browse = new JButton("Browse");
         browse.setFocusPainted(false);
-        browse.addActionListener(_ -> {
+        browse.addActionListener(_e -> {
             JFileChooser chooser = new JFileChooser();
             chooser.setCurrentDirectory(new File("" +
                     ((pathLabel.getText().isEmpty()) ? LocalStorage.instance().getProjectsFolder() : pathLabel.getText())
@@ -117,7 +117,7 @@ public class NewProjectDialog extends JDialog {
 
         JButton create = new JButton("Create Project");
         styleAccentButton(create);
-        create.addActionListener(_ -> createProject());
+        create.addActionListener(_e -> createProject());
 
         buttons.add(cancel);
         buttons.add(create);

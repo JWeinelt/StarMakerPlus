@@ -222,7 +222,7 @@ public class EditorScreen extends JFrame {
         menuBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
 
         menuBar.add(fileMenu());
-        menuBar.add(viewMenu());
+        menuBar.add(build());
         menuBar.add(helpMenu());
 
         return menuBar;
@@ -230,12 +230,11 @@ public class EditorScreen extends JFrame {
 
     private JMenu fileMenu() {
         JMenu menu = menu("File");
-        menu.add(menuItem("New File", KeyEvent.VK_N, ActionEvent.CTRL_MASK, e -> {
-        }));
-        menu.add(menuItem("Save", KeyEvent.VK_S, ActionEvent.CTRL_MASK, e -> {
-        }));
-        menu.add(menuItem("Save All", KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK, e -> {
-        }));
+        menu.add(menuItem("Open...", KeyEvent.VK_O, ActionEvent.CTRL_MASK, e -> {}));
+        JMenu recentMenu = menu("Recent Projects");
+        menu.add(recentMenu);
+        menu.add(menuItem("Save", KeyEvent.VK_S, ActionEvent.CTRL_MASK, e -> {}));
+        menu.add(menuItem("Save All", KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK, e -> {}));
         menu.addSeparator();
         menu.add(menuItem("Close Project", 0, 0, e -> closeProject()));
         menu.addSeparator();
@@ -243,10 +242,10 @@ public class EditorScreen extends JFrame {
         return menu;
     }
 
-    private JMenu viewMenu() {
-        JMenu menu = menu("View");
-        menu.add(menuItem("Collapse Tree", 0, 0, e -> {
-        }));
+    private JMenu build() {
+        JMenu menu = menu("Build");
+        menu.add(menuItem("Deployments...", KeyEvent.VK_D, ActionEvent.ALT_MASK, e -> {}));
+        menu.add(menuItem("Deploy", 0, 0, e -> {}));
         return menu;
     }
 

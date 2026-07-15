@@ -47,7 +47,7 @@ public class StarMakerPlus {
         return instance;
     }
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         instance = new StarMakerPlus();
         instance.start();
     }

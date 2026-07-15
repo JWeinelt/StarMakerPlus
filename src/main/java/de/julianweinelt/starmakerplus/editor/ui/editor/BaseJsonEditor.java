@@ -19,6 +19,7 @@ package de.julianweinelt.starmakerplus.editor.ui.editor;
 
 import de.julianweinelt.starmakerplus.StarMakerPlus;
 import de.julianweinelt.starmakerplus.editor.model.Project;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +27,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class BaseJsonEditor extends JPanel {
@@ -53,12 +53,6 @@ public abstract class BaseJsonEditor extends JPanel {
         add(buildHeader(), BorderLayout.NORTH);
 
         formPanel.setBorder(new EmptyBorder(16, 24, 16, 24));
-
-
-        GridBagConstraints filler = new GridBagConstraints();
-        filler.gridy = 999;
-        filler.weighty = 1;
-        filler.fill = GridBagConstraints.VERTICAL;
 
         JScrollPane scroll = new JScrollPane(formPanel);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -93,7 +87,7 @@ public abstract class BaseJsonEditor extends JPanel {
         formPanel.add(sectionLabel, gbc);
     }
 
-    protected JTextField addTextField(String key, String label, String placeholder, String initial, Consumer<String> onTextChanged) {
+    protected void addTextField(String key, String label, String placeholder, String initial, Consumer<String> onTextChanged) {
         JTextField field = new JTextField(28);
         field.setToolTipText(placeholder);
         field.setText(initial);
@@ -113,17 +107,16 @@ public abstract class BaseJsonEditor extends JPanel {
             @Override
             public void changedUpdate(DocumentEvent e) {update();}
         });
-        return field;
     }
 
-    protected JPanel addBlockSelection(String key, String label, Consumer<String> onBlockSelected) {
+    protected void addBlockSelection(String key, String label, Consumer<String> onBlockSelected) {
         JPanel panel = new JPanel(new BorderLayout());
         JTextField field = new JTextField(28);
         field.setToolTipText("Block Name");
         panel.add(field, BorderLayout.CENTER);
 
         JButton btn = new JButton("...");
-        btn.addActionListener(_ -> {
+        btn.addActionListener(_e -> {
             StarMakerPlus.instance().openBlockDialog(bl -> {
                 field.setText(bl);
                 onBlockSelected.accept(bl);
@@ -131,34 +124,30 @@ public abstract class BaseJsonEditor extends JPanel {
         });
         panel.add(btn, BorderLayout.EAST);
 
-        return panel;
     }
 
-    protected JSpinner addIntSpinner(String key, String label, int min, int max, int initial, Consumer<Integer> onValueChanged) {
+    protected void addIntSpinner(String key, String label, int min, int max, int initial, Consumer<Integer> onValueChanged) {
         JSpinner spinner = new JSpinner(new SpinnerNumberModel(initial, min, max, 1));
         spinner.setPreferredSize(new Dimension(120, 28));
         addFieldRow(key, label, spinner);
-        spinner.addChangeListener(_ -> onValueChanged.accept((int) spinner.getValue()));
-        return spinner;
+        spinner.addChangeListener(_e -> onValueChanged.accept((int) spinner.getValue()));
     }
 
-    protected JSpinner addDoubleSpinner(String key, String label, double min, double max, double initial, double step, Consumer<Double> onValueChanged) {
+    protected void addDoubleSpinner(String key, String label, double min, double max, double initial, double step, Consumer<Double> onValueChanged) {
         JSpinner spinner = new JSpinner(new SpinnerNumberModel(initial, min, max, step));
         spinner.setPreferredSize(new Dimension(120, 28));
         addFieldRow(key, label, spinner);
-        spinner.addChangeListener(_ -> onValueChanged.accept((double) spinner.getValue()));
-        return spinner;
+        spinner.addChangeListener(_e -> onValueChanged.accept((double) spinner.getValue()));
     }
 
-    protected JCheckBox addCheckBox(String key, String label, boolean initial, Consumer<Boolean> onValueChanged) {
+    protected void addCheckBox(String key, String label, boolean initial, Consumer<Boolean> onValueChanged) {
         JCheckBox check = new JCheckBox();
         check.setSelected(initial);
         addFieldRow(key, label, check);
-        check.addActionListener(_ -> onValueChanged.accept(check.isSelected()));
-        return check;
+        check.addActionListener(_e -> onValueChanged.accept(check.isSelected()));
     }
 
-    protected <T extends Enum<T>> JComboBox<T> addComboBox(
+    protected <T extends Enum<T>> void addComboBox(
             String key,
             String label,
             Class<T> enumClass,
@@ -177,7 +166,6 @@ public abstract class BaseJsonEditor extends JPanel {
         });
 
         addFieldRow(key, label, combo);
-        return combo;
     }
 
     protected ColorButton addColorPicker(String key, String label, Color initial, Consumer<Color> onColorChanged) {
@@ -322,6 +310,7 @@ public abstract class BaseJsonEditor extends JPanel {
     }
 
 
+    @Getter
     public static class ColorButton extends JButton {
         private Color color;
 
@@ -338,10 +327,6 @@ public abstract class BaseJsonEditor extends JPanel {
                     setBackground(color);
                 }
             });
-        }
-
-        public Color getColor() {
-            return color;
         }
 
         public String getHex() {

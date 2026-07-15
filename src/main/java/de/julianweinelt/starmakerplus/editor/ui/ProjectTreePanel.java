@@ -115,15 +115,16 @@ public class ProjectTreePanel extends JPanel {
                 JMenu addMenu = new JMenu("Add");
                 addMenu.add("Solar System");
                 menu.add(addMenu);
-            } case FOLDER -> {
-                JMenu addMenu = new JMenu("Add");
-                addMenu.add("Solar System");
-                addMenu.add("Star");
-                addMenu.add("Planet");
-                addMenu.add("Moon");
-                addMenu.add("Satellite");
-                menu.add(addMenu);
             }
+        }
+        if (data.type.isFolder) {
+            JMenu addMenu = new JMenu("Add");
+            addMenu.add("Solar System");
+            addMenu.add("Star");
+            addMenu.add("Planet");
+            addMenu.add("Moon");
+            addMenu.add("Satellite");
+            menu.add(addMenu);
         }
 
         menu.show(tree, x, y);
@@ -134,19 +135,19 @@ public class ProjectTreePanel extends JPanel {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(
                 new TreeNodeData(project.getName(), NodeType.PROJECT, ""));
 
-        DefaultMutableTreeNode galaxies = folder("Galaxies");
+        DefaultMutableTreeNode galaxies = folder("Galaxies", NodeType.FOLDER_GALAXIES);
         project.getGalaxies().forEach(galaxy -> {
             DefaultMutableTreeNode g = leaf(galaxy, NodeType.GALAXY, "");
             galaxies.add(g);
-            DefaultMutableTreeNode systems = folder("Solar Systems");
+            DefaultMutableTreeNode systems = folder("Solar Systems", NodeType.FOLDER_SOLAR_SYSTEMS);
             g.add(systems);
 
             project.getSolarSystems().forEach(system -> {
                 DefaultMutableTreeNode s = leaf(system.getName(), NodeType.SOLAR_SYSTEM, system.getName() + ".json");
-                DefaultMutableTreeNode stars = folder("Stars");
+                DefaultMutableTreeNode stars = folder("Stars", NodeType.FOLDER_STARS);
                 s.add(stars);
-                s.add(folder("Planets"));
-                s.add(folder("Asteroids"));
+                s.add(folder("Planets", NodeType.FOLDER_PLANETS));
+                s.add(folder("Asteroids", NodeType.FOLDER_ASTEROIDS));
                 systems.add(s);
 
                 system.getStars().forEach(star -> {
@@ -162,8 +163,8 @@ public class ProjectTreePanel extends JPanel {
         return new DefaultTreeModel(root);
     }
 
-    private DefaultMutableTreeNode folder(String name) {
-        return new DefaultMutableTreeNode(new TreeNodeData(name, NodeType.FOLDER, ""));
+    private DefaultMutableTreeNode folder(String name, NodeType type) {
+        return new DefaultMutableTreeNode(new TreeNodeData(name, type, ""));
     }
 
     private DefaultMutableTreeNode leaf(String name, NodeType type, String filePath) {
@@ -186,7 +187,24 @@ public class ProjectTreePanel extends JPanel {
 
 
     public enum NodeType {
-        PROJECT, FOLDER, PLANET, STAR, MOON, SOLAR_SYSTEM, GALAXY
+        PROJECT(false),
+        PLANET(false),
+        STAR(false),
+        MOON(false),
+        SOLAR_SYSTEM(false),
+        GALAXY(false),
+        SATELLITE(false),
+        FOLDER_STARS(true),
+        FOLDER_PLANETS(true),
+        FOLDER_ASTEROIDS(true),
+        FOLDER_SOLAR_SYSTEMS(true),
+        FOLDER_GALAXIES(true);
+
+        public final boolean isFolder;
+
+        NodeType(boolean isFolder) {
+            this.isFolder = isFolder;
+        }
     }
 
     public record TreeNodeData(String name, NodeType type, String filePath) {
